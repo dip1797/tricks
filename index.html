@@ -10,13 +10,15 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Nunito+Sans:wght@400;600;700;800;900&display=swap');
 
     :root {
       color-scheme: light;
-      --felt: #064e3b;
-      --felt2: #022c22;
-      --gold: #f59e0b;
+      --felt: #111827;
+      --felt2: #020617;
+      --gold: #fbbf24;
+      --accent-main: #7c3aed;
+      --accent-dark-main: #1e1b4b;
       --ink: #0f172a;
       --muted: #64748b;
       --paper: #ffffff;
@@ -28,12 +30,12 @@
     html, body { min-height: 100%; }
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 0% 0%, rgba(16,185,129,.22), transparent 36rem),
-        radial-gradient(circle at 100% 0%, rgba(245,158,11,.18), transparent 30rem),
-        linear-gradient(140deg, #f8fafc 0%, #ecfdf5 52%, #fff7ed 100%);
+        radial-gradient(circle at 0% 0%, rgba(124,58,237,.22), transparent 36rem),
+        radial-gradient(circle at 100% 0%, rgba(251,191,36,.18), transparent 30rem),
+        linear-gradient(140deg, #f8fafc 0%, #eef2ff 52%, #fff7ed 100%);
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -51,9 +53,10 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,.14), transparent 14rem),
-        radial-gradient(circle at 90% 0%, rgba(245,158,11,.25), transparent 20rem),
-        linear-gradient(135deg, #065f46, #064e3b 58%, #022c22);
+        radial-gradient(circle at 12% 10%, rgba(168,85,247,.30), transparent 15rem),
+        radial-gradient(circle at 90% 0%, rgba(251,191,36,.26), transparent 20rem),
+        radial-gradient(circle at 75% 85%, rgba(14,165,233,.18), transparent 18rem),
+        linear-gradient(135deg, #0f172a, #1e1b4b 56%, #020617);
       color: white;
     }
     .felt:before {
@@ -68,7 +71,7 @@
       pointer-events: none;
     }
     .felt:after {
-      content: "KACHUFUL";
+      content: "♠  ♦  ♣  ♥";
       position: absolute;
       right: -1.4rem;
       bottom: -.9rem;
@@ -98,9 +101,10 @@
       box-shadow: 0 8px 20px rgba(15,23,42,.07);
     }
 
-    .hero { border-radius: 0 0 30px 30px; padding: 14px 0 78px; box-shadow: 0 18px 50px rgba(6,78,59,.18); }
+    .hero { border-radius: 0 0 30px 30px; padding: 14px 0 78px; box-shadow: 0 18px 50px rgba(30,27,75,.24); }
     .hero-row { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; }
-    .hero h1 { margin: 6px 0 0; font-size: clamp(2.5rem, 12vw, 6.5rem); line-height: .86; letter-spacing: -.08em; font-weight: 900; }
+    .hero h1 { margin: 6px 0 0; font-family: "Anton", "Nunito Sans", sans-serif; font-size: clamp(2.7rem, 11vw, 6.5rem); line-height: .92; letter-spacing: .01em; font-weight: 400; text-transform: uppercase; }
+    .brand-title { margin: 12px 0 0; font-family: "Anton", "Nunito Sans", sans-serif; font-size: clamp(3.3rem, 17vw, 8.5rem); line-height: .9; letter-spacing: .015em; font-weight: 400; text-transform: uppercase; white-space: nowrap; }
     .eyebrow { margin: 0; color: rgba(255,255,255,.72); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 900; }
     .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
     .hero-btn { color: white; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 10px 12px; font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
@@ -126,7 +130,7 @@
       text-decoration: none;
     }
     .btn:active { transform: scale(.98); }
-    .btn-primary { color: white; background: linear-gradient(135deg, #059669, #064e3b); box-shadow: 0 16px 32px rgba(6,95,70,.25); }
+    .btn-primary { color: white; background: linear-gradient(135deg, #7c3aed, #1e1b4b); box-shadow: 0 16px 32px rgba(76,29,149,.25); }
     .btn-gold { color: white; background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 16px 32px rgba(217,119,6,.22); }
     .btn-dark { color: white; background: #0f172a; box-shadow: 0 16px 32px rgba(15,23,42,.20); }
     .btn-light { color: #0f172a; background: white; border: 1px solid rgba(15,23,42,.10); box-shadow: 0 8px 20px rgba(15,23,42,.07); }
@@ -136,9 +140,11 @@
 
     .grid-2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr; gap: 12px; }
     @media (min-width: 760px) {
       .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .hero { border-radius: 0 0 44px 44px; padding-bottom: 94px; }
       .pull-up { margin-top: -70px; }
     }
@@ -156,8 +162,10 @@
     }
     .choice strong { display: block; font-size: .98rem; line-height: 1.05; }
     .choice span { display: block; margin-top: 5px; color: #64748b; font-size: .75rem; font-weight: 800; line-height: 1.25; }
-    .choice.active { background: #064e3b; color: white; border-color: #064e3b; box-shadow: 0 14px 30px rgba(6,78,59,.20); }
+    .choice.active { background: #312e81; color: white; border-color: #312e81; box-shadow: 0 14px 30px rgba(49,46,129,.22); }
     .choice.active span { color: rgba(255,255,255,.74); }
+    .choice.clean strong, .choice-grid.three .choice strong { text-align: center; font-size: 1.02rem; }
+    .clean-help { font-size: .72rem; opacity: .9; }
 
     .setup-card { border-radius: 28px; padding: 16px; }
     .field-label { display: block; margin: 0 0 10px; color: #64748b; font-size: .68rem; font-weight: 900; text-transform: uppercase; letter-spacing: .18em; }
@@ -192,15 +200,15 @@
     .stepper.small .step-value { font-size: 1.85rem; }
 
     .preview { display: flex; flex-wrap: wrap; gap: 6px; }
-    .preview span { border-radius: 999px; background: #ecfdf5; color: #065f46; border: 1px solid #bbf7d0; padding: 7px 10px; font-size: .78rem; font-weight: 900; }
+    .preview span { border-radius: 999px; background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; padding: 7px 10px; font-size: .78rem; font-weight: 900; }
     .preview .more { background: #f1f5f9; color: #64748b; border-color: #e2e8f0; }
 
     .name-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
     @media (min-width: 760px) { .name-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
     .name-field {
-      --accent: #059669;
+      --accent: #7c3aed;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 9px;
       border-radius: 18px;
       padding: 9px;
@@ -208,14 +216,18 @@
       border: 1px solid rgba(15,23,42,.10);
       box-shadow: 0 8px 18px rgba(15,23,42,.05);
     }
+    .name-main { min-width: 0; flex: 1; }
     .name-num { width: 38px; height: 38px; border-radius: 14px; background: var(--accent); color: white; display: grid; place-items: center; font-weight: 900; flex: 0 0 auto; }
     .name-field input { border: 0; outline: 0; min-width: 0; width: 100%; font-weight: 900; text-transform: uppercase; font-size: .95rem; background: transparent; color: #0f172a; }
+    .color-options { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .color-dot { width: 22px; height: 22px; border-radius: 999px; background: var(--dot); border: 2px solid white; box-shadow: 0 0 0 1px rgba(15,23,42,.16), 0 3px 8px rgba(15,23,42,.12); padding: 0; }
+    .color-dot.selected { box-shadow: 0 0 0 3px white, 0 0 0 5px var(--dot), 0 8px 16px rgba(15,23,42,.16); transform: translateY(-1px); }
 
     .score-strip { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
     @media (min-width: 760px) { .score-strip { grid-template-columns: repeat(3, minmax(0,1fr)); } }
     @media (min-width: 1050px) { .score-strip { grid-template-columns: repeat(6, minmax(0,1fr)); } }
     .score-chip {
-      --accent: #059669;
+      --accent: #7c3aed;
       border-radius: 18px;
       background: white;
       border: 1px solid rgba(15,23,42,.08);
@@ -226,10 +238,10 @@
       min-width: 0;
       box-shadow: 0 8px 18px rgba(15,23,42,.05);
     }
-    .score-chip.active { box-shadow: 0 0 0 3px rgba(5,150,105,.18), 0 10px 24px rgba(15,23,42,.08); border-color: var(--accent); }
+    .score-chip.active { box-shadow: 0 0 0 3px rgba(124,58,237,.18), 0 10px 24px rgba(15,23,42,.08); border-color: var(--accent); }
     .avatar { width: 36px; height: 36px; border-radius: 13px; background: var(--accent); color: white; display: grid; place-items: center; font-size: .78rem; font-weight: 900; flex: 0 0 auto; }
     .score-chip .nm { display: block; font-size: .78rem; font-weight: 900; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; }
-    .score-chip .pts { display: block; margin-top: 3px; font-size: .85rem; font-weight: 900; color: #065f46; }
+    .score-chip .pts { display: block; margin-top: 3px; font-size: .85rem; font-weight: 900; color: #3730a3; }
 
     .round-info { border-radius: 26px; padding: 14px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
     .round-info h2 { margin: 0; font-size: 2.25rem; letter-spacing: -.07em; line-height: .95; font-weight: 900; }
@@ -242,9 +254,9 @@
     @media (min-width: 760px) { .player-grid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; } }
     @media (min-width: 1140px) { .player-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
     .player-tile {
-      --accent: #059669;
-      --accent-dark: #064e3b;
-      --soft: #dcfce7;
+      --accent: #7c3aed;
+      --accent-dark: #1e1b4b;
+      --soft: #ede9fe;
       border-radius: 24px;
       padding: 10px;
       background: rgba(255,255,255,.96);
@@ -252,7 +264,20 @@
       box-shadow: 0 14px 28px rgba(15,23,42,.08);
       min-width: 0;
     }
-    .player-tile.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(5,150,105,.18), 0 16px 34px rgba(15,23,42,.10); }
+    .player-tile.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,.18), 0 16px 34px rgba(15,23,42,.10); }
+    .correction-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 700px) { .correction-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+    @media (min-width: 1120px) { .correction-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .correction-tile { overflow: hidden; }
+    .edit-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .edit-control { min-width: 0; border-radius: 18px; padding: 9px; background: #f8fafc; border: 1px solid rgba(15,23,42,.08); }
+    .edit-control.actual { background: #fff7ed; }
+    .edit-control .field-label { margin-bottom: 7px; }
+    .edit-control .stepper.small { grid-template-columns: 38px minmax(30px, 1fr) 38px; gap: 5px; }
+    .edit-control .stepper.small .step-btn { width: 38px; height: 38px; border-radius: 14px; }
+    .edit-control .stepper.small .step-value { font-size: 1.65rem; }
+    .edit-score-meta { margin-top: 10px; padding: 10px 2px 0; border-top: 1px solid rgba(15,23,42,.07); }
+    @media (max-width: 340px) { .edit-controls { grid-template-columns: 1fr; } }
     .player-name {
       border-radius: 18px;
       padding: 10px 10px;
@@ -270,24 +295,29 @@
     .tile-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 8px 2px 0; color: #64748b; font-size: .72rem; font-weight: 900; }
     .tile-meta b { color: #0f172a; }
     .status-pill { border-radius: 999px; padding: 6px 8px; font-size: .68rem; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; }
-    .ok { background: #dcfce7; color: #166534; }
+    .ok { background: #dbeafe; color: #1d4ed8; }
     .bad { background: #ffe4e6; color: #be123c; }
     .warn { background: #fef3c7; color: #92400e; }
 
     .action-panel { margin-top: 12px; border-radius: 26px; padding: 12px; display: grid; gap: 10px; }
     @media (min-width: 760px) { .action-panel { grid-template-columns: 1fr auto; align-items: center; } }
     .total-box { border-radius: 20px; padding: 13px; background: #f8fafc; border: 1px solid rgba(15,23,42,.08); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .total-box.bid-invalid { background: #fff1f2; border-color: #fecdd3; box-shadow: inset 0 0 0 1px rgba(225,29,72,.08); }
     .total-box strong { font-size: 2rem; font-weight: 900; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
     .total-box span { color: #64748b; font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; }
+    .bid-rule-note { margin: 4px 0 0; color: #64748b; font-size: .78rem; font-weight: 800; line-height: 1.25; }
+    .bid-rule-note.bad { color: #be123c; }
+    .total-box.invalid { background: #fff1f2; border-color: #fecdd3; }
+    .total-box.invalid strong { color: #e11d48; }
     .error { margin-top: 10px; border-radius: 20px; padding: 12px 14px; background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; font-weight: 900; }
 
     .result-list { display: grid; gap: 10px; }
     @media (min-width: 760px) { .result-list { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    .result-item { --accent:#059669; border-radius: 22px; padding: 12px; background: white; border: 1px solid rgba(15,23,42,.08); display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+    .result-item { --accent:#7c3aed; border-radius: 22px; padding: 12px; background: white; border: 1px solid rgba(15,23,42,.08); display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
     .result-item h3 { margin: 0; font-size: 1.08rem; line-height: 1.05; font-weight: 900; text-transform: uppercase; }
     .result-item p { margin: 4px 0 0; color: #64748b; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
     .score-number { font-size: 2rem; line-height: 1; font-weight: 900; font-variant-numeric: tabular-nums; }
-    .pos { color: #059669; } .neg { color: #e11d48; } .zero { color: #94a3b8; }
+    .pos { color: #0d9488; } .neg { color: #e11d48; } .zero { color: #94a3b8; }
 
     .bottom-nav {
       position: fixed;
@@ -301,20 +331,24 @@
     .nav-grid { width: min(640px, 100%); margin: 0 auto; padding: 7px 8px; display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; }
     .nav-btn { border-radius: 16px; padding: 9px 4px; background: transparent; color: #475569; font-size: .65rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
     .nav-btn .ico { display:block; font-size: 1.12rem; margin-bottom: 2px; }
-    .nav-btn.active { background: #ecfdf5; color: #065f46; }
+    .nav-btn.active { background: #eef2ff; color: #3730a3; }
     .nav-btn.danger { color: #e11d48; }
 
-    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(15,23,42,.74); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 10px; }
-    .modal { width: min(1120px, 100%); max-height: min(90vh, 900px); overflow: hidden; display: flex; flex-direction: column; border-radius: 28px; background: white; box-shadow: 0 24px 90px rgba(0,0,0,.28); }
-    .modal-head { padding: 16px; color: white; }
-    .modal-head-row { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .modal-title { margin: 0; font-size: 1.45rem; font-weight: 900; letter-spacing: -.04em; }
-    .modal-body { overflow: auto; padding: 14px; }
-    .close { width: 44px; height: 44px; border-radius: 16px; background: rgba(255,255,255,.14); color: white; border: 1px solid rgba(255,255,255,.18); font-size: 1.3rem; font-weight: 900; }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(15,23,42,.74); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+    .modal { width: min(1120px, calc(100vw - 20px)); max-height: calc(100dvh - 20px); overflow: hidden; display: flex; flex-direction: column; border-radius: 28px; background: white; box-shadow: 0 24px 90px rgba(0,0,0,.28); }
+    .modal-head { padding: 14px; color: white; flex: 0 0 auto; }
+    .modal-head-row { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .modal-head-row > div { min-width: 0; }
+    .modal-title { margin: 0; font-size: 1.35rem; font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .modal-body { overflow: auto; padding: 14px; -webkit-overflow-scrolling: touch; }
+    .close { flex: 0 0 40px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 15px; background: rgba(255,255,255,.18); color: white; border: 1px solid rgba(255,255,255,.24); font-size: 1.35rem; font-weight: 900; line-height: 1; position: relative; z-index: 5; }
 
     .summary-mobile { display: grid; gap: 10px; }
     .summary-desktop { display: none; overflow: auto; }
     @media (min-width: 820px) { .summary-mobile { display:none; } .summary-desktop { display:block; } }
+    .modal .summary-mobile { display: none; }
+    .modal .summary-desktop { display: block; overflow: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e2e8f0; border-radius: 18px; }
+    .modal .summary-desktop table { min-width: 760px; }
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; text-align: center; vertical-align: middle; }
     th { position: sticky; top: 0; background: #f8fafc; z-index: 1; color: #475569; font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; }
@@ -324,12 +358,12 @@
     .share-grid { display: grid; gap: 10px; }
     @media (min-width: 760px) { .share-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
     .share-card { border-radius: 24px; padding: 14px; border: 1px solid rgba(15,23,42,.10); background: #f8fafc; }
-    .share-card h3 { margin: 0 0 5px; font-size: 1.15rem; font-weight: 900; }
+    .share-card h3 { margin: 0 0 5px; font-size: 1.15rem; font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
     .share-card p { margin: 0 0 12px; color: #64748b; font-size: .85rem; font-weight: 700; line-height: 1.35; }
 
     .final-rank { display: grid; gap: 10px; }
     .rank-row { border-radius: 22px; padding: 12px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; background: white; border: 1px solid rgba(15,23,42,.08); }
-    .rank-badge { width: 44px; height: 44px; border-radius: 16px; display: grid; place-items:center; color:white; background:#064e3b; font-weight:900; }
+    .rank-badge { width: 44px; height: 44px; border-radius: 16px; display: grid; place-items:center; color:white; background:#312e81; font-weight:900; }
     .rank-row h3 { margin: 0; font-size: 1.15rem; font-weight: 900; text-transform: uppercase; }
     .rank-row p { margin: 2px 0 0; color: #64748b; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -339,12 +373,17 @@
       .pull-up { margin-top: -48px; }
       .hero-row { gap: 8px; }
       .hero h1 { font-size: 2.35rem; }
+      .brand-title { font-size: clamp(3.05rem, 16.2vw, 4.65rem); letter-spacing: .005em; }
       .hero-actions { max-width: 144px; }
       .hero-btn { padding: 9px 10px; border-radius: 14px; font-size: .62rem; }
       .setup-card { border-radius: 22px; padding: 12px; }
       .choice { border-radius: 16px; padding: 12px; }
       .choice strong { font-size: .88rem; }
       .choice span { font-size: .68rem; }
+      .modal-backdrop { align-items: flex-start; padding: 8px; }
+      .modal { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 24px; }
+      .modal-head { padding: 12px; }
+      .close { flex-basis: 40px; width: 40px; height: 40px; border-radius: 14px; }
       .round-info { border-radius: 22px; padding: 12px; }
       .round-info h2 { font-size: 1.9rem; }
       .trump-badge { min-width: 66px; padding: 10px; border-radius: 18px; }
@@ -357,6 +396,10 @@
       .stepper { grid-template-columns: 38px minmax(36px,1fr) 38px; gap: 5px; }
       .step-btn { width: 38px; height: 38px; border-radius: 14px; font-size: 1.25rem; }
       .step-value { font-size: 1.85rem; }
+      .edit-control { padding: 8px; border-radius: 16px; }
+      .edit-control .stepper.small { grid-template-columns: 36px minmax(28px,1fr) 36px; gap: 4px; }
+      .edit-control .stepper.small .step-btn { width: 36px; height: 36px; border-radius: 13px; font-size: 1.15rem; }
+      .edit-control .stepper.small .step-value { font-size: 1.48rem; }
       .tile-meta { font-size: .65rem; }
       .btn { border-radius: 18px; padding: 12px 14px; min-height: 46px; }
       .score-strip { gap: 7px; }
@@ -381,7 +424,7 @@
     snapshot links, and copyable text summary.
 
     For true live score updates on every phone, create a Firebase Realtime
-    Database project and paste your web config below. Then use Share > Start Live.
+    Database project and paste your web config below. Then use Share > START LIVE.
   */
   const FIREBASE_CONFIG = {
     apiKey: "",
@@ -393,8 +436,10 @@
     appId: ""
   };
 
-  const STORAGE_KEY = "kachuful_mobile_fixed_v1";
-  const OLD_KEYS = ["kachuful_pro_state_v4", "kachuful_pro_state_v3", "kachuful_pro_state_v2"];
+  const STORAGE_KEY = "kachuful_mobile_fixed_v2";
+  const OLD_KEYS = ["kachuful_mobile_fixed_v1", "kachuful_pro_state_v4", "kachuful_pro_state_v3", "kachuful_pro_state_v2"];
+  const MIN_PLAYERS = 3;
+  const MAX_PLAYERS = 12;
 
   const SUITS = [
     { name: "Spades", short: "KA", icon: "\u2660", color: "#111827", soft: "#f1f5f9" },
@@ -405,24 +450,35 @@
   const NO_TRUMP = { name: "No Trump", short: "NT", icon: "NT", color: "#0f172a", soft: "#e2e8f0" };
 
   const THEMES = [
-    { a: "#059669", d: "#064e3b", s: "#dcfce7" },
-    { a: "#2563eb", d: "#1e3a8a", s: "#dbeafe" },
-    { a: "#f97316", d: "#9a3412", s: "#ffedd5" },
-    { a: "#9333ea", d: "#581c87", s: "#f3e8ff" },
-    { a: "#e11d48", d: "#881337", s: "#ffe4e6" },
-    { a: "#0891b2", d: "#164e63", s: "#cffafe" }
+    { name: "Teal", a: "#0f766e", d: "#134e4a", s: "#ccfbf1" },
+    { name: "Royal Blue", a: "#2563eb", d: "#1e3a8a", s: "#dbeafe" },
+    { name: "Sunset Orange", a: "#f97316", d: "#9a3412", s: "#ffedd5" },
+    { name: "Violet", a: "#7c3aed", d: "#4c1d95", s: "#ede9fe" },
+    { name: "Crimson", a: "#dc2626", d: "#7f1d1d", s: "#fee2e2" },
+    { name: "Ocean Blue", a: "#0284c7", d: "#075985", s: "#e0f2fe" },
+    { name: "Yellow", a: "#eab308", d: "#713f12", s: "#fef9c3" },
+    { name: "Charcoal", a: "#475569", d: "#0f172a", s: "#e2e8f0" },
+    { name: "Baby Pink", a: "#f9a8d4", d: "#9d174d", s: "#fce7f3" },
+    { name: "Mint", a: "#10b981", d: "#065f46", s: "#d1fae5" },
+    { name: "Lavender", a: "#a78bfa", d: "#5b21b6", s: "#f3e8ff" },
+    { name: "Walnut", a: "#92400e", d: "#451a03", s: "#fef3c7" },
+    { name: "Navy", a: "#1e3a8a", d: "#111827", s: "#dbeafe" },
+    { name: "Magenta", a: "#c026d3", d: "#701a75", s: "#fae8ff" },
+    { name: "Coral", a: "#fb7185", d: "#9f1239", s: "#ffe4e6" },
+    { name: "Olive", a: "#65a30d", d: "#365314", s: "#ecfccb" }
   ];
 
   const DEFAULT_CONFIG = {
     playerCount: 5,
     playerNames: ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5"],
+    playerColors: [0, 1, 2, 3, 4],
     deckCount: 1,
     roundMode: "upDown",
     cardsPerPlayer: 10,
     totalRounds: 20,
     customSequence: "10",
     trumpMode: "with",
-    lastBidRule: false
+    lastBidRule: true
   };
 
   const app = document.getElementById("app");
@@ -464,7 +520,13 @@
     const decks = typeof configOrCount === "object" ? configOrCount.deckCount : deckCount;
     return Math.max(1, Math.floor((Number(decks || 1) * 52) / Number(count || 1)));
   }
-  function theme(i) { return THEMES[i % THEMES.length]; }
+  function colorIndexFor(i) {
+    let chosen = null;
+    if (state && state.game && state.game.players && state.game.players[i] && state.game.players[i].colorIndex != null) chosen = state.game.players[i].colorIndex;
+    else if (state && state.config && Array.isArray(state.config.playerColors)) chosen = state.config.playerColors[i];
+    return clamp(chosen == null ? i : chosen, 0, THEMES.length - 1);
+  }
+  function theme(i) { return THEMES[colorIndexFor(i)] || THEMES[i % THEMES.length]; }
   function themeStyle(i) {
     const t = theme(i);
     return "--accent:" + t.a + ";--accent-dark:" + t.d + ";--soft:" + t.s + ";";
@@ -481,6 +543,14 @@
     if (bid === actual) return bid === 0 ? 10 : bid * 10;
     return bid === 0 ? -10 : bid * -10;
   }
+  function isBlockedBidTotal(total, cards) {
+    return Number(total || 0) === Number(cards || 0);
+  }
+  function bidRuleText(total, cards) {
+    return isBlockedBidTotal(total, cards)
+      ? "Total bids cannot equal cards. Make it " + (cards - 1) + " or less, or " + (cards + 1) + " or more."
+      : "Bid total must be under or over the card count, not exactly equal.";
+  }
   function defaultNames(count) {
     return Array.from({ length: count }, function(_, i){ return "Player " + (i + 1); });
   }
@@ -496,23 +566,26 @@
 
   function normalizeConfig(raw) {
     raw = raw || {};
-    const playerCount = clamp(raw.playerCount || DEFAULT_CONFIG.playerCount, 3, 6);
+    const playerCount = clamp(raw.playerCount || DEFAULT_CONFIG.playerCount, MIN_PLAYERS, MAX_PLAYERS);
     const deckCount = Number(raw.deckCount) === 2 ? 2 : 1;
     const maxAllowed = maxCardsFor(playerCount, deckCount);
     const fallbackCards = Math.min(10, maxAllowed);
     const names = Array.isArray(raw.playerNames) ? raw.playerNames.slice() : defaultNames(playerCount);
     while (names.length < playerCount) names.push("Player " + (names.length + 1));
+    const colors = Array.isArray(raw.playerColors) ? raw.playerColors.slice() : [];
+    while (colors.length < playerCount) colors.push(colors.length % THEMES.length);
     const modeOk = ["upDown", "downUp", "custom"].includes(raw.roundMode);
     return {
       playerCount: playerCount,
       playerNames: names.slice(0, playerCount),
+      playerColors: colors.slice(0, playerCount).map(function(value, i){ return clamp(value == null ? i : value, 0, THEMES.length - 1); }),
       deckCount: deckCount,
       roundMode: modeOk ? raw.roundMode : DEFAULT_CONFIG.roundMode,
-      cardsPerPlayer: clamp(raw.cardsPerPlayer || fallbackCards, 1, maxAllowed),
+      cardsPerPlayer: maxAllowed,
       totalRounds: clamp(raw.totalRounds || DEFAULT_CONFIG.totalRounds, 1, 300),
       customSequence: String(raw.customSequence || DEFAULT_CONFIG.customSequence),
       trumpMode: raw.trumpMode === "none" ? "none" : "with",
-      lastBidRule: Boolean(raw.lastBidRule)
+      lastBidRule: true
     };
   }
 
@@ -545,7 +618,7 @@
 
   function recalcGame(game) {
     if (!game) return game;
-    const players = game.players.map(function(p){ return Object.assign({}, p, { totalScore: 0 }); });
+    const players = game.players.map(function(p, i){ return Object.assign({}, p, { colorIndex: p.colorIndex != null ? p.colorIndex : (state.config.playerColors && state.config.playerColors[i] != null ? state.config.playerColors[i] : i), totalScore: 0 }); });
     const rounds = game.rounds.map(function(r){
       const round = Object.assign({}, r);
       if (round.status === "completed") {
@@ -556,7 +629,7 @@
       }
       return round;
     });
-    const finished = rounds.length > 0 && rounds.every(function(r){ return r.status === "completed"; });
+    const finished = Boolean(game.isFinished || game.endedEarly) || (rounds.length > 0 && rounds.every(function(r){ return r.status === "completed"; }));
     return Object.assign({}, game, { players: players, rounds: rounds, isFinished: finished });
   }
 
@@ -719,11 +792,10 @@
     const hasGame = Boolean(state.game);
     const champion = hasGame ? standings(state.game.players)[0] : null;
     return `<main class="page no-nav safe-top safe-bottom"><div class="wrap" style="padding-top:18px;">
-      <section class="felt" style="border-radius:34px; padding:24px; min-height:330px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 24px 70px rgba(6,78,59,.22);">
+      <section class="felt" style="border-radius:34px; padding:24px; min-height:330px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 24px 70px rgba(30,27,75,.26);">
         <div class="on-felt">
-          <p class="eyebrow">Mobile and iPad scorekeeper</p>
-          <h1 style="margin:12px 0 0; font-size:clamp(4rem,20vw,9rem); line-height:.78; letter-spacing:-.1em; font-weight:900;">Kachu<br>ful</h1>
-          <p style="max-width:620px; margin:20px 0 0; color:rgba(255,255,255,.78); font-size:1rem; font-weight:800; line-height:1.45;">Compact 2-column player tiles, highlighted names, edit-after-submit, no-trump option, custom rounds, and shareable score views.</p>
+          <p class="eyebrow">Card game scorekeeper</p>
+          <h1 class="brand-title">KACHUFUL</h1>
         </div>
         <div class="on-felt" style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; max-width:330px; margin-top:24px;">
           ${SUITS.map(function(s){ return `<div class="card" style="border-radius:20px; aspect-ratio:.72; display:grid; place-items:center; font-size:2.4rem; color:${s.color}; font-weight:900;">${s.icon}</div>`; }).join("")}
@@ -746,42 +818,38 @@
     const c = normalizeConfig(state.config);
     state.config = c;
     const maxAllowed = maxCardsFor(c);
-    const used = c.cardsPerPlayer * c.playerCount;
     const seq = buildSequence(c);
     const preview = seq.slice(0, 24).map(function(n){ return `<span>${n}</span>`; }).join("") + (seq.length > 24 ? `<span class="more">+${seq.length - 24}</span>` : "");
     return `<main class="page no-nav">${header("Setup", "Build your match", false)}
       <div class="wrap pull-up">
         <div class="grid-2">
           <section class="glass setup-card">
-            <div class="section-title"><div><p>Table</p><h2>Players and cards</h2></div></div>
+            <div class="section-title"><div><p>Table</p><h2>Players and decks</h2></div></div>
             <div style="display:grid; gap:14px;">
-              <div><label class="field-label">Players</label>${setupStepper("playerCount", c.playerCount, 3, 6)}<p class="help">3 to 6 players. Names below stay highlighted during the match.</p></div>
+              <div><label class="field-label">Players</label>${setupStepper("playerCount", c.playerCount, MIN_PLAYERS, MAX_PLAYERS)}</div>
               <div><label class="field-label">Deck packs</label><div class="choice-grid">
                 <button class="choice ${c.deckCount === 1 ? "active" : ""}" data-action="select-decks" data-value="1"><strong>1 deck</strong><span>52 cards</span></button>
                 <button class="choice ${c.deckCount === 2 ? "active" : ""}" data-action="select-decks" data-value="2"><strong>2 decks</strong><span>104 cards</span></button>
               </div></div>
-              <div><label class="field-label">Max cards per player</label>${setupStepper("cardsPerPlayer", c.cardsPerPlayer, 1, maxAllowed)}<p class="help">Max for ${c.playerCount} players with ${c.deckCount} deck(s): ${maxAllowed}. Current deal uses ${used} cards.</p></div>
-              <div><label class="field-label">Total rounds</label>${setupStepper("totalRounds", c.totalRounds, 1, 300)}<p class="help">For long games, the chosen card pattern repeats.</p></div>
+              <div><label class="field-label">Total rounds</label>${setupStepper("totalRounds", c.totalRounds, 1, 300)}</div>
               <div><label class="field-label">Trump option</label><div class="choice-grid">
-                <button class="choice ${c.trumpMode === "with" ? "active" : ""}" data-action="select-trump" data-value="with"><strong>With trump</strong><span>Spades, diamonds, clubs, hearts</span></button>
-                <button class="choice ${c.trumpMode === "none" ? "active" : ""}" data-action="select-trump" data-value="none"><strong>No trump</strong><span>Every round is NT</span></button>
+                <button class="choice ${c.trumpMode === "with" ? "active" : ""}" data-action="select-trump" data-value="with"><strong>With Trump</strong></button>
+                <button class="choice ${c.trumpMode === "none" ? "active" : ""}" data-action="select-trump" data-value="none"><strong>No Trump</strong></button>
               </div></div>
-              <button class="choice ${c.lastBidRule ? "active" : ""}" data-action="toggle-last-bid" style="width:100%;"><strong>Last Bid Rule: ${c.lastBidRule ? "On" : "Off"}</strong><span>When on, total bids cannot equal cards.</span></button>
             </div>
           </section>
 
           <section class="glass setup-card">
             <div class="section-title"><div><p>Rounds</p><h2>Pattern</h2></div></div>
             <div class="choice-grid three">
-              <button class="choice ${c.roundMode === "upDown" ? "active" : ""}" data-action="select-round-mode" data-value="upDown"><strong>1 to max, max to 1</strong><span>For max 10: 1...10,10...1</span></button>
-              <button class="choice ${c.roundMode === "downUp" ? "active" : ""}" data-action="select-round-mode" data-value="downUp"><strong>Max to 1, 1 to max</strong><span>For max 10: 10...1,1...10</span></button>
-              <button class="choice ${c.roundMode === "custom" ? "active" : ""}" data-action="select-round-mode" data-value="custom"><strong>Custom</strong><span>Type any sequence</span></button>
+              <button class="choice ${c.roundMode === "upDown" ? "active" : ""}" data-action="select-round-mode" data-value="upDown"><strong>One to Max</strong></button>
+              <button class="choice ${c.roundMode === "downUp" ? "active" : ""}" data-action="select-round-mode" data-value="downUp"><strong>Max to One</strong></button>
+              <button class="choice ${c.roundMode === "custom" ? "active" : ""}" data-action="select-round-mode" data-value="custom"><strong>Custom</strong></button>
             </div>
             <div style="margin-top:14px; display:${c.roundMode === "custom" ? "block" : "none"};">
               <label class="field-label">Custom sequence</label>
               <textarea class="input textarea" data-input="customSequence" placeholder="Example: 10 or 1-10,10-1">${esc(c.customSequence)}</textarea>
-              <p class="help">Use commas, spaces, or ranges. Examples: "10" for every round, or "1-10,10-1".</p>
-            </div>
+              </div>
             <div class="card" style="border-radius:24px; padding:14px; margin-top:14px;">
               <div class="section-title"><div><p>Preview</p><h2>${seq.length} rounds</h2></div></div>
               <div class="preview">${preview}</div>
@@ -790,12 +858,11 @@
         </div>
 
         <section class="glass setup-card" style="margin-top:12px;">
-          <div class="section-title"><div><p>Clear names</p><h2>Players</h2></div></div>
+          <div class="section-title"><div><p>Profile colors</p><h2>Players</h2></div></div>
           <div class="name-grid">
-            ${c.playerNames.map(function(name, i){ return `<label class="name-field" style="${themeStyle(i)}"><span class="name-num">${i+1}</span><input data-input="playerName" data-index="${i}" value="${esc(name)}" placeholder="Player ${i+1}"></label>`; }).join("")}
+            ${c.playerNames.map(function(name, i){ return `<div class="name-field" style="${themeStyle(i)}"><span class="name-num">${i+1}</span><div class="name-main"><input data-input="playerName" data-index="${i}" value="${esc(name)}" placeholder="Player ${i+1}"><div class="color-options" aria-label="Choose ${esc(name)} color">${THEMES.map(function(t, colorIdx){ return `<button type="button" class="color-dot ${c.playerColors[i] === colorIdx ? "selected" : ""}" style="--dot:${t.a};" data-action="set-player-color" data-index="${i}" data-color="${colorIdx}" aria-label="${esc(t.name)}"></button>`; }).join("")}</div></div></div>`; }).join("")}
           </div>
-          <div class="card" style="border-radius:24px; padding:14px; margin-top:14px; display:grid; gap:10px;">
-            <p class="help" style="margin:0;"><b>Scoring:</b> exact bid 0 = +10, exact bid N = N x 10. Missed bid 0 = -10, missed bid N = -N x 10.</p>
+          <div style="margin-top:14px;">
             <button class="btn btn-primary btn-full" data-action="start-match">Start Match</button>
           </div>
         </section>
@@ -811,7 +878,7 @@
     const r = currentRound();
     if (!r) return "";
     const trump = r.trump || NO_TRUMP;
-    return `<div><p class="eyebrow" style="color:#64748b;">Round ${r.num} of ${state.game.rounds.length}</p><h2>${r.cards} cards</h2><p>${state.config.playerCount} players x ${r.cards} cards = ${state.config.playerCount * r.cards} cards dealt</p></div><div class="trump-badge" style="background:${trump.soft};"><div class="suit" style="color:${trump.color};">${esc(trump.icon)}</div><div class="label">${esc(trump.name)}</div></div>`;
+    return `<div><p class="eyebrow" style="color:#64748b;">Round ${r.num} of ${state.game.rounds.length}</p><h2>${r.cards} cards</h2></div><div class="trump-badge" style="background:${trump.soft};"><div class="suit" style="color:${trump.color};">${esc(trump.icon)}</div><div class="label">${esc(trump.name)}</div></div>`;
   }
 
   function scoreStrip() {
@@ -838,12 +905,12 @@
         <div class="tile-meta"><span>Round score</span><b class="${scoreCls(projected)}">${formatScore(projected)}</b></div>`;
     } else if (kind === "edit") {
       const projected = scoreRound(bid, actual);
-      body = `<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <div class="mini-card" style="border-radius:18px; padding:8px;"><label class="field-label" style="margin-bottom:6px;">Bid</label><div class="stepper small"><button class="step-btn" data-action="step-edit-bid" data-index="${i}" data-delta="-1">-</button><div class="step-value">${bid}</div><button class="step-btn" data-action="step-edit-bid" data-index="${i}" data-delta="1">+</button></div></div>
-        <div class="mini-card" style="border-radius:18px; padding:8px;"><label class="field-label" style="margin-bottom:6px;">Actual</label><div class="stepper small"><button class="step-btn" data-action="step-edit-actual" data-index="${i}" data-delta="-1">-</button><div class="step-value">${actual}</div><button class="step-btn" data-action="step-edit-actual" data-index="${i}" data-delta="1">+</button></div></div>
-        </div><div class="tile-meta"><span>Corrected score</span><b class="${scoreCls(projected)}">${formatScore(projected)}</b></div>`;
+      body = `<div class="edit-controls">
+        <div class="edit-control"><label class="field-label">Bid</label><div class="stepper small"><button class="step-btn" data-action="step-edit-bid" data-index="${i}" data-delta="-1">-</button><div class="step-value">${bid}</div><button class="step-btn" data-action="step-edit-bid" data-index="${i}" data-delta="1">+</button></div></div>
+        <div class="edit-control actual"><label class="field-label">Actual</label><div class="stepper small"><button class="step-btn" data-action="step-edit-actual" data-index="${i}" data-delta="-1">-</button><div class="step-value">${actual}</div><button class="step-btn" data-action="step-edit-actual" data-index="${i}" data-delta="1">+</button></div></div>
+        </div><div class="tile-meta edit-score-meta"><span>Corrected score</span><b class="${scoreCls(projected)}">${formatScore(projected)}</b></div>`;
     }
-    return `<article class="player-tile ${isActive ? "active" : ""}" style="${themeStyle(i)}">
+    return `<article class="player-tile ${kind === "edit" ? "correction-tile" : ""} ${isActive ? "active" : ""}" style="${themeStyle(i)}">
       <button class="player-name" data-action="toggle-pin" data-index="${i}" style="width:100%; text-align:left;"><span class="avatar">${esc(initials(player.name))}</span><span style="min-width:0;"><span class="small">Player ${i+1}</span><span class="big">${esc(player.name)}</span></span></button>
       ${body}
     </article>`;
@@ -853,16 +920,14 @@
     const r = currentRound();
     if (!r) return welcomeScreen();
     const total = r.bids.reduce(function(a,b){ return a + Number(b || 0); }, 0);
-    const lastIdx = state.game.players.length - 1;
-    const sumExLast = r.bids.slice(0, -1).reduce(function(a,b){ return a + Number(b || 0); }, 0);
-    const restricted = r.cards - sumExLast;
-    const blocked = state.config.lastBidRule && total === r.cards;
+    const blocked = isBlockedBidTotal(total, r.cards);
+    const statusClass = blocked ? "neg" : total > r.cards ? "warn" : "pos";
     return `<main class="page">${activeHeader(String(r.cards) + " Cards", "Bidding")}
       <div class="wrap" style="margin-top:12px;">
         <div class="player-grid">${state.game.players.map(function(p,i){ return playerTile(p, i, "bid"); }).join("")}</div>
         <section class="glass action-panel">
-          <div class="total-box"><div><span>Bid total</span><div class="help" style="margin:2px 0 0;">Cards: ${r.cards}${state.config.lastBidRule ? "; last player cannot bid " + restricted : ""}</div></div><strong class="${blocked ? "neg" : total === r.cards ? "warn" : "pos"}">${total}</strong></div>
-          <button class="btn btn-primary" data-action="start-round">Start Round</button>
+          <div class="total-box ${blocked ? "invalid" : ""}"><div><span>Bid total</span><div class="bid-rule-note ${blocked ? "bad" : ""}">${esc(bidRuleText(total, r.cards))}</div></div><strong class="${statusClass}">${total}/${r.cards}</strong></div>
+          <button class="btn ${blocked ? "btn-red" : "btn-primary"}" data-action="start-round">${blocked ? "Fix Bids" : "Start Round"}</button>
         </section>
         ${state.error ? `<div class="error">${esc(state.error)}</div>` : ""}
       </div>
@@ -894,9 +959,10 @@
           <div class="section-title"><div><p>Round scores</p><h2>Round ${r.num}</h2></div><button class="btn btn-dark" data-action="edit-round" data-index="${state.game.currentIndex}">Edit</button></div>
           <div class="result-list">${state.game.players.map(function(p,i){ return `<div class="result-item" style="${themeStyle(i)}"><div><h3>${esc(p.name)}</h3><p>Bid ${r.bids[i]} / Got ${r.actual[i]} / Total ${p.totalScore}</p></div><div class="score-number ${scoreCls(r.scores[i])}">${formatScore(r.scores[i])}</div></div>`; }).join("")}</div>
         </section>
-        <div class="grid-3" style="margin-top:12px;">
+        <div class="grid-4" style="margin-top:12px;">
           <button class="btn btn-light" data-action="open-summary">Summary</button>
           <button class="btn btn-light" data-action="open-share">Share</button>
+          ${state.game.isFinished ? "" : `<button class="btn btn-gold" data-action="finish-early">End Early</button>`}
           <button class="btn btn-primary" data-action="next-round">${state.game.isFinished ? "Finish Match" : "Next Round"}</button>
         </div>
       </div>
@@ -911,13 +977,15 @@
     const originalIndex = state.game.currentIndex;
     state.game.currentIndex = idx;
     const total = r.actual.reduce(function(a,b){ return a + Number(b || 0); }, 0);
+    const bidTotal = r.bids.reduce(function(a,b){ return a + Number(b || 0); }, 0);
+    const bidBlocked = isBlockedBidTotal(bidTotal, r.cards);
     const html = `<main class="page">${header("Edit", "Fix round " + r.num, true)}
       <div class="wrap pull-up">
         <div class="glass round-info">${roundInfo()}</div>
         <div style="height:10px"></div>
         <section class="glass setup-card">
-          <div class="section-title"><div><p>Admin correction</p><h2>Change bid or actual</h2></div><strong class="${total === r.cards ? "pos" : "neg"}">${total}/${r.cards}</strong></div>
-          <div class="player-grid">${state.game.players.map(function(p,i){ return playerTile(p, i, "edit"); }).join("")}</div>
+          <div class="section-title"><div><p>Admin correction</p><h2>Change bid or actual</h2></div><div style="display:grid; gap:4px; text-align:right;"><strong class="${total === r.cards ? "pos" : "neg"}">Actual ${total}/${r.cards}</strong><strong class="${bidBlocked ? "neg" : "pos"}">Bids ${bidTotal}/${r.cards}</strong></div></div>
+          <div class="correction-grid">${state.game.players.map(function(p,i){ return playerTile(p, i, "edit"); }).join("")}</div>
           ${state.error ? `<div class="error">${esc(state.error)}</div>` : ""}
           <div class="grid-2" style="margin-top:12px;"><button class="btn btn-light" data-action="cancel-edit">Cancel</button><button class="btn btn-primary" data-action="save-edit">Save Correction</button></div>
         </section>
@@ -929,13 +997,13 @@
 
   function finalScreen() {
     const ranked = standings(state.game.players);
-    const champ = ranked[0];
+    const champ = ranked[0] || { name: "", totalScore: 0 };
     return `<main class="page no-nav safe-top safe-bottom"><div class="wrap" style="display:grid; gap:12px; padding-top:18px;">
-      <section class="felt" style="border-radius:34px; padding:24px; box-shadow:0 24px 70px rgba(6,78,59,.22);">
-        <div class="on-felt" style="text-align:center;"><div style="font-size:4rem;">\uD83C\uDFC6</div><p class="eyebrow">Champion</p><h1 style="margin:8px 0 0; font-size:clamp(2.6rem,12vw,6rem); line-height:.9; letter-spacing:-.08em; font-weight:900;">${esc(champ.name)}</h1><p style="margin:10px 0 0; color:#fde68a; font-size:2rem; font-weight:900;">${champ.totalScore} pts</p></div>
+      <section class="felt" style="border-radius:34px; padding:24px; box-shadow:0 24px 70px rgba(30,27,75,.26);">
+        <div class="on-felt" style="text-align:center;"><div style="font-size:4rem;">&#127942;</div><p class="eyebrow">${state.game.endedEarly ? "ENDED EARLY" : "FINAL LEADERBOARD"}</p><h1 style="margin:8px 0 0; font-family:Anton, Nunito Sans, sans-serif; font-size:clamp(2.9rem,12vw,6rem); line-height:.92; letter-spacing:.01em; font-weight:400; text-transform:uppercase;">LEADERBOARD</h1><p style="margin:10px 0 0; color:#fde68a; font-size:1.45rem; font-weight:900; text-transform:uppercase;">Champion: ${esc(champ.name)} - ${champ.totalScore} pts</p></div>
       </section>
-      <section class="glass setup-card"><div class="final-rank">${ranked.map(function(p, i){ return `<div class="rank-row" style="${themeStyle(p.id)}"><div class="rank-badge" style="background:${theme(p.id).a};">#${i+1}</div><div><h3>${esc(p.name)}</h3><p>Final standing</p></div><div class="score-number ${scoreCls(p.totalScore)}">${p.totalScore}</div></div>`; }).join("")}</div>
-        <div class="grid-3" style="margin-top:12px;"><button class="btn btn-light" data-action="open-summary">Summary</button><button class="btn btn-light" data-action="open-share">Share</button><button class="btn btn-primary" data-screen="setup">New Match</button></div>
+      <section class="glass setup-card"><div class="section-title"><div><p>${completedCount(state.game)}/${state.game.rounds.length} rounds complete</p><h2>Final standings</h2></div></div><div class="final-rank">${ranked.map(function(p, i){ return `<div class="rank-row" style="${themeStyle(p.id)}"><div class="rank-badge" style="background:${theme(p.id).a};">#${i+1}</div><div><h3>${esc(p.name)}</h3><p>${i === 0 ? "First place" : i === 1 ? "Second place" : i === 2 ? "Third place" : "Final standing"}</p></div><div class="score-number ${scoreCls(p.totalScore)}">${p.totalScore}</div></div>`; }).join("")}</div>
+        <div class="grid-3" style="margin-top:12px;"><button class="btn btn-light" data-action="open-summary">Summary</button><button class="btn btn-light" data-action="open-share">Share</button><button class="btn btn-primary" data-action="new-match">New Match</button></div>
       </section>
     </div></main>`;
   }
@@ -943,12 +1011,14 @@
   function rulesScreen() {
     return `<main class="page no-nav">${header("Rules", "Quick guide", false)}<div class="wrap pull-up"><div class="grid-2">
       ${[
-        ["Round patterns", "Choose 1 to max then max to 1, max to 1 then 1 to max, or custom. For 20 rounds with max 10, choose one of the first two patterns."],
-        ["Cards and decks", "The app calculates the legal max from players and deck packs. With 6 players and 1 deck, max is 8 cards each, using 48 cards."],
+        ["Round patterns", "One to Max means 1, 2, 3 ... max, then repeats if the match is longer. Max to One means max, max-1 ... 1, then repeats. Custom accepts numbers and ranges like 10 or 1-10,10-1."],
+        ["Cards and decks", "The app supports 3 to 12 players. Cards per player are calculated automatically from player count and deck packs. Any leftover cards simply stay out as cats/kitty. Example: 5 players with 1 deck can play up to 10 cards each, leaving 2 cards out."],
+        ["Bid rule", "Total bids cannot equal the number of cards in the round. Example: in a 4-card round, 4/4 is not allowed; 3/4 or 5/4 is allowed because at least one player must miss."],
         ["Trump or no trump", "At setup, choose with trump for suit rotation, or no trump for every round."],
         ["Scoring", "Exact bid 0 earns +10. Exact bid N earns N x 10. Missed bid 0 loses -10. Missed bid N loses N x 10."],
         ["Fix mistakes", "After submitting a round, use Edit from Result or Summary to correct bids and tricks. Totals recalculate automatically."],
-        ["Phones", "Snapshot links work on GitHub Pages immediately. True live phone updates need Firebase Realtime Database config." ]
+        ["Phone score view", "Snapshot links work immediately. True live phone updates need Firebase Realtime Database config; the admin phone writes the score and player phones listen to the same match code." ],
+        ["Finish early", "Use Finish from the bottom bar or Result screen to stop a long match and show the leaderboard without deleting the scores." ]
       ].map(function(item){ return `<section class="glass setup-card"><h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.04em;">${esc(item[0])}</h2><p class="help" style="margin:0; font-size:.95rem;">${esc(item[1])}</p></section>`; }).join("")}
       </div></div></main>`;
   }
@@ -956,18 +1026,17 @@
   function summaryModal() {
     if (state.modal !== "summary" || !state.game) return "";
     const rowsMobile = state.game.rounds.map(function(r, idx){
-      return `<div class="card" style="border-radius:22px; padding:12px; ${idx === state.game.currentIndex ? "background:#ecfdf5;" : ""}">
+      return `<div class="card" style="border-radius:22px; padding:12px; ${idx === state.game.currentIndex ? "background:#eef2ff;" : ""}">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;"><div><p class="field-label" style="margin:0 0 3px;">Round ${r.num}</p><h3 style="margin:0; font-weight:900;">${r.cards} cards ${esc((r.trump || NO_TRUMP).icon)}</h3></div>${r.status === "completed" ? `<button class="btn btn-dark" data-action="edit-round" data-index="${idx}" style="min-height:38px; padding:8px 10px; border-radius:14px;">Edit</button>` : `<span class="status-pill warn">Open</span>`}</div>
         <div style="display:grid; gap:6px; margin-top:10px;">${state.game.players.map(function(p,i){ return `<div style="display:flex; justify-content:space-between; gap:8px; padding:8px; border-radius:14px; background:#f8fafc;"><b style="text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(p.name)}</b>${r.status === "completed" ? `<span class="${scoreCls(r.scores[i])}" style="font-weight:900;">${r.bids[i]}/${r.actual[i]} ${formatScore(r.scores[i])}</span>` : `<span style="color:#94a3b8; font-weight:900;">-</span>`}</div>`; }).join("")}</div>
       </div>`;
     }).join("");
     const tableRows = state.game.rounds.map(function(r, idx){
-      return `<tr style="${idx === state.game.currentIndex ? "background:#ecfdf5;" : "background:white;"}"><td><b>R${r.num}</b></td><td>${r.cards}</td><td style="font-size:1.25rem; color:${(r.trump || NO_TRUMP).color};">${esc((r.trump || NO_TRUMP).icon)}</td>${state.game.players.map(function(p,i){ return `<td>${r.status === "completed" ? `<div style="font-size:.72rem; color:#64748b; font-weight:900;">${r.bids[i]}/${r.actual[i]}</div><div class="${scoreCls(r.scores[i])}" style="font-weight:900;">${formatScore(r.scores[i])}</div>` : `<span style="color:#94a3b8; font-weight:900;">-</span>`}</td>`; }).join("")}<td>${r.status === "completed" ? `<button class="btn btn-dark" data-action="edit-round" data-index="${idx}" style="min-height:36px; padding:7px 10px; border-radius:12px;">Edit</button>` : "-"}</td></tr>`;
+      return `<tr style="${idx === state.game.currentIndex ? "background:#eef2ff;" : "background:white;"}"><td><b>R${r.num}</b></td><td>${r.cards}</td><td style="font-size:1.25rem; color:${(r.trump || NO_TRUMP).color};">${esc((r.trump || NO_TRUMP).icon)}</td>${state.game.players.map(function(p,i){ return `<td>${r.status === "completed" ? `<div style="font-size:.72rem; color:#64748b; font-weight:900;">${r.bids[i]}/${r.actual[i]}</div><div class="${scoreCls(r.scores[i])}" style="font-weight:900;">${formatScore(r.scores[i])}</div>` : `<span style="color:#94a3b8; font-weight:900;">-</span>`}</td>`; }).join("")}<td>${r.status === "completed" ? `<button class="btn btn-dark" data-action="edit-round" data-index="${idx}" style="min-height:36px; padding:7px 10px; border-radius:12px;">Edit</button>` : "-"}</td></tr>`;
     }).join("");
-    return `<div class="modal-backdrop"><div class="modal"><div class="modal-head felt"><div class="modal-head-row"><div><p class="eyebrow">Scoreboard</p><h2 class="modal-title">Match Summary</h2></div><button class="close" data-action="close-modal">x</button></div></div><div class="modal-body">
+    return `<div class="modal-backdrop"><div class="modal"><div class="modal-head felt"><div class="modal-head-row"><div><p class="eyebrow">Scoreboard</p><h2 class="modal-title">MATCH SUMMARY</h2></div><button class="close" data-action="close-modal" aria-label="Close">&times;</button></div></div><div class="modal-body">
       <div class="card" style="border-radius:22px; padding:12px; margin-bottom:10px;"><div class="section-title"><div><p>Totals</p><h2>Standings</h2></div><button class="btn btn-light" data-action="copy-summary" style="min-height:40px; padding:8px 12px;">Copy</button></div>${scoreStrip()}</div>
-      <div class="summary-mobile">${rowsMobile}</div>
-      <div class="summary-desktop"><table><thead><tr><th>Round</th><th>Cards</th><th>Trump</th>${state.game.players.map(function(p){ return `<th>${esc(p.name)}</th>`; }).join("")}<th>Edit</th></tr></thead><tbody>${tableRows}</tbody></table></div>
+      <div class="summary-desktop"><table style="min-width:${Math.max(760, 300 + state.game.players.length * 118)}px;"><thead><tr><th>Round</th><th>Cards</th><th>Trump</th>${state.game.players.map(function(p){ return `<th>${esc(p.name)}</th>`; }).join("")}<th>Edit</th></tr></thead><tbody>${tableRows}</tbody></table></div>
     </div></div></div>`;
   }
 
@@ -977,12 +1046,12 @@
     const code = sanitizeCode(state.shareCode || state.sync.matchCode || generateMatchCode());
     const playerButtons = state.game.players.map(function(p,i){ return `<button class="choice" data-action="copy-player-snapshot" data-index="${i}"><strong>${esc(p.name)}</strong><span>Copy personal snapshot</span></button>`; }).join("");
     const liveButtons = state.game.players.map(function(p,i){ return `<button class="choice" data-action="copy-player-live" data-index="${i}" ${ready ? "" : "disabled"}><strong>${esc(p.name)}</strong><span>${ready ? "Copy personal live link" : "Needs Firebase"}</span></button>`; }).join("");
-    return `<div class="modal-backdrop"><div class="modal" style="max-width:900px;"><div class="modal-head felt"><div class="modal-head-row"><div><p class="eyebrow">Phones and iPads</p><h2 class="modal-title">Share Scores</h2></div><button class="close" data-action="close-modal">x</button></div></div><div class="modal-body">
+    return `<div class="modal-backdrop"><div class="modal" style="max-width:900px;"><div class="modal-head felt"><div class="modal-head-row"><div><p class="eyebrow">PHONES & IPADS</p><h2 class="modal-title">SHARE SCORES</h2></div><button class="close" data-action="close-modal" aria-label="Close">&times;</button></div></div><div class="modal-body">
       <div class="share-grid">
-        <section class="share-card"><h3>Snapshot links</h3><p>Works immediately on GitHub Pages. It is read-only; copy a new snapshot after later rounds if players need an updated link.</p><button class="btn btn-primary btn-full" data-action="copy-snapshot">Copy Match Snapshot</button><div class="choice-grid" style="margin-top:10px;">${playerButtons}</div></section>
-        <section class="share-card"><h3>Text summary</h3><p>Best for WhatsApp or a group chat. It includes current standings and completed rounds.</p><button class="btn btn-dark btn-full" data-action="copy-summary">Copy Text Summary</button></section>
-        <section class="share-card" style="background:#0f172a; color:white;"><h3>Live sync</h3><p style="color:rgba(255,255,255,.72);">True live updates need Firebase config pasted inside this HTML file. Status: ${ready ? "Ready" : "Needs Firebase"}.</p><input class="input" style="background:rgba(255,255,255,.08); color:white; border-color:rgba(255,255,255,.18); text-transform:uppercase;" data-input="shareCode" value="${esc(code)}"><div style="height:8px"></div><button class="btn btn-gold btn-full" data-action="start-live">Start Live</button><p style="color:rgba(255,255,255,.72); margin-top:10px;">${esc(state.sync.status)} ${state.sync.error ? "- " + esc(state.sync.error) : ""}</p><div class="choice-grid" style="margin-top:10px;">${liveButtons}</div></section>
-        <section class="share-card"><h3>Best free setup</h3><p>Use GitHub Pages for the file and Firebase Realtime Database Spark for live scores. For only a table of players, the free limits are usually more than enough.</p><button class="btn btn-light btn-full" data-action="copy-live">Copy Live Match Link</button></section>
+        <section class="share-card"><h3>SNAPSHOT LINKS</h3><p>Works immediately on GitHub Pages. It is read-only; copy a new snapshot after later rounds if players need an updated link.</p><button class="btn btn-primary btn-full" data-action="copy-snapshot">COPY MATCH SNAPSHOT</button><div class="choice-grid" style="margin-top:10px;">${playerButtons}</div></section>
+        <section class="share-card"><h3>TEXT SUMMARY</h3><p>Best for WhatsApp or a group chat. It includes current standings and completed rounds.</p><button class="btn btn-dark btn-full" data-action="copy-summary">COPY TEXT SUMMARY</button></section>
+        <section class="share-card" style="background:#0f172a; color:white;"><h3>LIVE SYNC</h3><p style="color:rgba(255,255,255,.72);">True live updates need Firebase config pasted inside this HTML file. Status: ${ready ? "Ready" : "Needs Firebase"}.</p><input class="input" style="background:rgba(255,255,255,.08); color:white; border-color:rgba(255,255,255,.18); text-transform:uppercase;" data-input="shareCode" value="${esc(code)}"><div style="height:8px"></div><button class="btn btn-gold btn-full" data-action="start-live">START LIVE</button><p style="color:rgba(255,255,255,.72); margin-top:10px;">${esc(state.sync.status)} ${state.sync.error ? "- " + esc(state.sync.error) : ""}</p><div class="choice-grid" style="margin-top:10px;">${liveButtons}</div></section>
+        <section class="share-card"><h3>BEST FREE SETUP</h3><p>Use GitHub Pages for the file and Firebase Realtime Database Spark for live scores. For only a table of players, the free limits are usually more than enough.</p><button class="btn btn-light btn-full" data-action="copy-live">COPY LIVE MATCH LINK</button></section>
       </div>
     </div></div></div>`;
   }
@@ -1002,7 +1071,7 @@
 
   function bottomNav() {
     if (!state.game || state.viewerKind || ["welcome", "setup", "rules", "final"].includes(state.screen)) return "";
-    return `<nav class="bottom-nav safe-bottom"><div class="nav-grid"><button class="nav-btn ${["bidding","scoring","result"].includes(state.screen) ? "active" : ""}" data-action="go-current"><span class="ico">\u25ce</span>Current</button><button class="nav-btn" data-action="open-summary"><span class="ico">\u2630</span>Summary</button><button class="nav-btn" data-action="open-share"><span class="ico">\u21aa</span>Share</button><button class="nav-btn danger" data-action="end-match"><span class="ico">\u2715</span>End</button></div></nav>`;
+    return `<nav class="bottom-nav safe-bottom"><div class="nav-grid"><button class="nav-btn ${["bidding","scoring","result"].includes(state.screen) ? "active" : ""}" data-action="go-current"><span class="ico">\u25ce</span>Current</button><button class="nav-btn" data-action="open-summary"><span class="ico">\u2630</span>Summary</button><button class="nav-btn" data-action="open-share"><span class="ico">\u21aa</span>Share</button><button class="nav-btn danger" data-action="finish-early"><span class="ico">\u2691</span>Finish</button></div></nav>`;
   }
 
   function makeSummaryText() {
@@ -1010,6 +1079,7 @@
     const cr = currentRound();
     const lines = [];
     lines.push("Kachuful Match Summary");
+    lines.push("Status: " + (state.game.endedEarly ? "Finished early" : state.game.isFinished ? "Finished" : "In progress"));
     lines.push("Round " + (state.game.currentIndex + 1) + "/" + state.game.rounds.length + (cr ? " - " + cr.cards + " cards - " + (cr.trump || NO_TRUMP).name : ""));
     lines.push("");
     lines.push("Standings:");
@@ -1042,7 +1112,7 @@
   function startMatch() {
     const config = normalizeConfig(state.config);
     const seq = buildSequence(config);
-    const players = config.playerNames.map(function(name, i){ return { id: i, name: String(name || "").trim() || "Player " + (i + 1), totalScore: 0 }; });
+    const players = config.playerNames.map(function(name, i){ return { id: i, name: String(name || "").trim() || "Player " + (i + 1), colorIndex: config.playerColors[i], totalScore: 0 }; });
     const rounds = seq.map(function(cards, i){
       const trump = config.trumpMode === "with" ? SUITS[i % SUITS.length] : NO_TRUMP;
       return { num: i + 1, cards: cards, trump: trump, bids: Array(config.playerCount).fill(0), actual: Array(config.playerCount).fill(0), scores: Array(config.playerCount).fill(0), status: "bidding" };
@@ -1058,12 +1128,10 @@
   function adjustSetup(field, delta) {
     const c = normalizeConfig(state.config);
     if (field === "playerCount") {
-      c.playerCount = clamp(c.playerCount + delta, 3, 6);
+      c.playerCount = clamp(c.playerCount + delta, MIN_PLAYERS, MAX_PLAYERS);
       while (c.playerNames.length < c.playerCount) c.playerNames.push("Player " + (c.playerNames.length + 1));
       c.playerNames = c.playerNames.slice(0, c.playerCount);
-      c.cardsPerPlayer = clamp(c.cardsPerPlayer, 1, maxCardsFor(c));
-    } else if (field === "cardsPerPlayer") {
-      c.cardsPerPlayer = clamp(c.cardsPerPlayer + delta, 1, maxCardsFor(c));
+      c.cardsPerPlayer = maxCardsFor(c);
     } else if (field === "totalRounds") {
       c.totalRounds = clamp(c.totalRounds + delta, 1, 300);
     }
@@ -1076,7 +1144,7 @@
     if (!r) return;
     const arrName = kind === "bid" ? "bids" : "actual";
     let next = clamp((r[arrName][idx] || 0) + delta, 0, r.cards);
-    if (kind === "bid" && state.config.lastBidRule && idx === state.game.players.length - 1) {
+    if (kind === "bid" && idx === state.game.players.length - 1) {
       const sumExLast = r.bids.slice(0, -1).reduce(function(a,b){ return a + Number(b || 0); }, 0);
       const restricted = r.cards - sumExLast;
       if (next === restricted) {
@@ -1092,8 +1160,8 @@
   function startRound() {
     const r = currentRound();
     const total = r.bids.reduce(function(a,b){ return a + Number(b || 0); }, 0);
-    if (state.config.lastBidRule && total === r.cards) {
-      state.error = "Last Bid Rule is on: total bids cannot equal " + r.cards + ".";
+    if (isBlockedBidTotal(total, r.cards)) {
+      state.error = "Bid total cannot equal " + r.cards + ". Someone has to be under or over, so change the total to " + (r.cards - 1) + " or less, or " + (r.cards + 1) + " or more.";
       render();
       return;
     }
@@ -1123,6 +1191,12 @@
     const idx = state.editIndex == null ? state.game.currentIndex : state.editIndex;
     const r = state.game.rounds[idx];
     const total = r.actual.reduce(function(a,b){ return a + Number(b || 0); }, 0);
+    const bidTotal = r.bids.reduce(function(a,b){ return a + Number(b || 0); }, 0);
+    if (isBlockedBidTotal(bidTotal, r.cards)) {
+      state.error = "Bid total cannot equal " + r.cards + ". Change the bids to " + (r.cards - 1) + " or less, or " + (r.cards + 1) + " or more.";
+      render();
+      return;
+    }
     if (total !== r.cards) {
       state.error = "Actual tricks must total " + r.cards + ". Current total is " + total + ".";
       render();
@@ -1149,6 +1223,18 @@
     commit();
   }
 
+  function finishEarly() {
+    if (!state.game) return;
+    if (confirm("Finish this match now and show the leaderboard? Scores will not be deleted.")) {
+      state.game.isFinished = true;
+      state.game.endedEarly = true;
+      state.screen = "final";
+      state.modal = null;
+      state.error = "";
+      commit();
+    }
+  }
+
   function endMatch() {
     if (confirm("End this match and clear progress on this device?")) {
       state.game = null;
@@ -1160,6 +1246,18 @@
       clearLocal();
       render();
     }
+  }
+
+  function newMatch() {
+    state.game = null;
+    state.screen = "setup";
+    state.modal = null;
+    state.pinned = null;
+    state.error = "";
+    state.sync = { enabled: false, role: null, matchCode: "", status: "Offline", error: "" };
+    stopLiveListener();
+    clearLocal();
+    render();
   }
 
   document.addEventListener("click", function(e){
@@ -1179,10 +1277,17 @@
     const delta = btn.hasAttribute("data-delta") ? Number(btn.getAttribute("data-delta")) : 0;
 
     if (action === "setup-step") adjustSetup(btn.getAttribute("data-field"), delta);
-    else if (action === "select-decks") { const c = normalizeConfig(state.config); c.deckCount = Number(btn.getAttribute("data-value")); c.cardsPerPlayer = clamp(c.cardsPerPlayer, 1, maxCardsFor(c)); state.config = normalizeConfig(c); commit(); }
+    else if (action === "select-decks") { const c = normalizeConfig(state.config); c.deckCount = Number(btn.getAttribute("data-value")); c.cardsPerPlayer = maxCardsFor(c); state.config = normalizeConfig(c); commit(); }
     else if (action === "select-trump") { state.config.trumpMode = btn.getAttribute("data-value"); state.config = normalizeConfig(state.config); commit(); }
+    else if (action === "set-player-color") {
+      const c = normalizeConfig(state.config);
+      const colorIdx = clamp(Number(btn.getAttribute("data-color")), 0, THEMES.length - 1);
+      if (idx != null) c.playerColors[idx] = colorIdx;
+      state.config = normalizeConfig(c);
+      if (state.game && state.game.players[idx]) state.game.players[idx].colorIndex = colorIdx;
+      commit();
+    }
     else if (action === "select-round-mode") { state.config.roundMode = btn.getAttribute("data-value"); state.config = normalizeConfig(state.config); commit(); }
-    else if (action === "toggle-last-bid") { state.config.lastBidRule = !state.config.lastBidRule; commit(); }
     else if (action === "start-match") startMatch();
     else if (action === "go-current") { state.screen = currentScreenForGame(); state.modal = null; state.error = ""; commit(); }
     else if (action === "open-summary") { if (state.game) { state.modal = "summary"; render(); } }
@@ -1196,10 +1301,12 @@
     else if (action === "start-round") startRound();
     else if (action === "finalize-round") finalizeRound();
     else if (action === "next-round") nextRound();
+    else if (action === "finish-early") finishEarly();
     else if (action === "edit-round") { state.editIndex = idx; state.editReturn = state.screen === "edit" ? "result" : state.screen; state.modal = null; state.screen = "edit"; state.error = ""; commit(); }
     else if (action === "cancel-edit") { state.screen = state.editReturn || "result"; state.editIndex = null; state.error = ""; commit(); }
     else if (action === "save-edit") saveEdit();
     else if (action === "end-match") endMatch();
+    else if (action === "new-match") newMatch();
     else if (action === "copy-summary") copyText(makeSummaryText(), "Summary");
     else if (action === "copy-snapshot") { const link = snapshotLink(); if (link.length > 7500) alert("This match link is very long because it contains the whole match. For long games, live sync or text summary is better."); copyText(link, "Snapshot link"); }
     else if (action === "copy-player-snapshot") copyText(snapshotLink(idx), state.game.players[idx].name + " snapshot");
